@@ -1,7 +1,6 @@
 <template>
   <v-app>
   <Timeline />
-  <router-view/>
 </v-app>
 </template>
 

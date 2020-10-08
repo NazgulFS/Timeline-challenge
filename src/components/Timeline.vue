@@ -35,7 +35,7 @@
       <!-- Table -->
       <v-data-table
         :headers="headers"
-        :items="arreglo"
+        :items="this.arreglo"
         sort-by="calories"
         class="elevation-1 mt-10"
         :hide-default-footer="true"
@@ -148,16 +148,14 @@ export default {
       timeline: "",
       arreglo: [
         {
-          id: 1,
           content: "Julio Gomez",
-          start: "2019-03-1 10:00",
-          end: "2019-03-1 10:30",
+          start: "2020-04-23 10:00",
+          end: "2020-04-23 10:30",
         },
         {
-          id: 2,
-          content: "Reserva 3",
-          start: "2019-03-1 11:00",
-          end: "2019-03-1 11:45",
+          content: "Claudio Gonzalez",
+          start: "2020-04-23 11:10",
+          end: "2020-04-23 12:45",
         },
       ],
       // table
@@ -187,14 +185,13 @@ export default {
         end: "",
       },
       defaultItem: {
-        content: "",
+        content: "Reserva #",
         start: "",
         end: "",
       },
     };
   },
   mounted() {
-    // LocalStorage
     this.checkArreglo();
 
     // Vis
@@ -240,12 +237,18 @@ export default {
           this.value = 0;
         }
       });
+
+    
+    // LocalStorage
+    //this.checkArreglo();
+    
   },
   methods: {
+
     resetTimeline() {
-      let items = new vis.DataSet(this.arreglo);
+      let elems = new vis.DataSet(JSON.parse(localStorage.getItem("reservas")));
       this.timeline.destroy();
-      this.timeline = new vis.Timeline(this.container, items, this.options);
+      this.timeline = new vis.Timeline(this.container, elems, this.options);
     },
 
     resetZoom() {
@@ -328,7 +331,7 @@ export default {
 
     checkArreglo() {
       let reservas = JSON.parse(localStorage.getItem("reservas"));
-      if (reservas !== this.arreglo) {
+      if (this.arreglo != reservas && reservas != null) {
         this.arreglo = reservas;
       }
     },
@@ -345,6 +348,9 @@ export default {
     dialogDelete(val) {
       val || this.closeDelete();
     },
+  },
+  created () {
+    
   },
 };
 </script>
