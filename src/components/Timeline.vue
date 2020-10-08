@@ -69,7 +69,7 @@
                         class="ma-2"
                         v-model="editedItem.start"
                         type="datetime"
-                        format='YYYY-MM-DD'
+                        format="YYYY-MM-DD HH:mm"
                         width="400"
                         placeholder="Desde"
                       ></date-picker>
