@@ -2,11 +2,11 @@
   <div>
     <v-container>
       <!-- Card Timeline-->
+      <h1>Agenda de reservas</h1>
       <v-card class="mx-auto" elevation="3" outlined>
         <v-card-text>
-          <h3>Agenda de reservas</h3>
           <!--Timeline-->
-          <div id="visualization">
+          <div class="mx-10" id="visualization">
             <div class="menu">
               <input
                 style="display: none"
@@ -19,14 +19,14 @@
                 step="0.1"
                 value="0"
               />
-              <v-btn @click="moveLeft()" color="secondary" class="arrow-left">
-                <v-icon class="white--text">mdi-arrow-left</v-icon>
-              </v-btn>
-              <v-btn @click="moveRight()" color="secondary" class="arrow-right">
-                <v-icon class="white--text">mdi-arrow-right</v-icon>
-              </v-btn>
             </div>
           </div>
+          <v-btn @click="moveLeft()" color="secondary" class="arrow-left">
+            <v-icon class="white--text">mdi-chevron-left</v-icon>
+          </v-btn>
+          <v-btn @click="moveRight()" color="secondary" class="arrow-right">
+            <v-icon class="white--text">mdi-chevron-right</v-icon>
+          </v-btn>
           <!-- End Timeline -->
         </v-card-text>
       </v-card>
@@ -45,34 +45,36 @@
             <v-toolbar-title>Lista de reservas</v-toolbar-title>
             <v-divider class="mx-4" inset vertical></v-divider>
             <v-spacer></v-spacer>
-            <v-dialog v-model="dialog" max-width="800px">
+            <v-dialog v-model="dialog" max-width="500px">
               <template v-slot:activator="{ on, attrs }">
-                <v-btn color="info" dark class="mb-2" v-bind="attrs" v-on="on">
+                <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
                   Agregar reserva
                 </v-btn>
               </template>
               <v-card>
                 <v-card-title>
-                  <span class="headline">{{ formTitle }}</span>
+                  <span class="headline mb-1">{{ formTitle }}</span>
                 </v-card-title>
 
                 <v-card-text>
-                  <v-container>
-                    <v-row>
                       <v-text-field
+                        
+                        class="mt-3 elevation-0"
+                        outlined
                         v-model="editedItem.content"
-                        filled
                         label="Nombre"
                       ></v-text-field>
                       <!-- Date picker -->
                       <date-picker
+                        class="ma-2"
                         v-model="editedItem.start"
                         type="datetime"
-                        format="YYYY-MM-DD HH:mm"
+                        format='YYYY-MM-DD'
                         width="400"
                         placeholder="Desde"
                       ></date-picker>
                       <date-picker
+                        class="ma-2"
                         v-model="editedItem.end"
                         type="datetime"
                         format="YYYY-MM-DD HH:mm"
@@ -80,20 +82,14 @@
                         placeholder="Hasta"
                       ></date-picker>
                       <!-- End Date picker -->
-
-                      <v-col cols="12" sm="6" md="4">
-                        <!-- Date picker -->
-                      </v-col>
-                    </v-row>
-                  </v-container>
                 </v-card-text>
 
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="blue darken-3" text @click="close">
+                  <v-btn color="primary" text @click="close">
                     Cancelar
                   </v-btn>
-                  <v-btn color="blue darken-3" text @click="save">
+                  <v-btn color="primary" text @click="save">
                     Guardar
                   </v-btn>
                 </v-card-actions>
@@ -101,16 +97,16 @@
               <!-- Edit reservas -->
             </v-dialog>
             <v-dialog v-model="dialogDelete" max-width="500px">
-              <v-card>
-                <v-card-title class="headline"
+              <v-card flex>
+                <v-card-title class="headline justify-center"
                   >¿Desea elminar la reserva?</v-card-title
                 >
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="blue darken-3" text @click="closeDelete"
+                  <v-btn color="primary" text @click="closeDelete"
                     >Cancelar</v-btn
                   >
-                  <v-btn color="blue darken-3" text @click="deleteItemConfirm"
+                  <v-btn color="primary" text @click="deleteItemConfirm"
                     >Aceptar</v-btn
                   >
                   <v-spacer></v-spacer>
@@ -172,7 +168,7 @@ export default {
         {
           text: "Nombre",
           align: "start",
-          sortable: false,
+          sortable: true,
           value: "content",
         },
         { text: "Horario inicio", value: "start" },
@@ -356,4 +352,17 @@ export default {
 <style scoped>
 @import "../assets/style.css";
 @import "../assets/full-style.css";
+
+.arrow-left {
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  z-index: 999;
+}
+.arrow-right {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  z-index: 999;
+}
 </style>
