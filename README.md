@@ -1,4 +1,11 @@
-# timeline
+# Vue-timeline
+libraries: 
+- moment
+- visjs
+- vue2-datepicker (https://github.com/mengxiong10/vue2-datepicker)
+- vuetify
+  
+  included Local Storage uses
 
 ## Project setup
 ```
